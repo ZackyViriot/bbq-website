@@ -328,7 +328,7 @@ const Home = () => {
   return (
     <div className={`min-h-screen ${isDark ? 'bg-gray-900 text-gray-100' : 'bg-gray-50 text-gray-800'} overflow-x-hidden`}>
       {/* Hero Section */}
-      <section className="relative w-full min-h-[80vh] flex items-center pt-16 pb-20">
+      <section id="top" className="relative w-full min-h-[80vh] flex items-center pt-16 pb-20">
         {/* Background Image */}
         <div 
           className="absolute inset-0 w-full h-full"

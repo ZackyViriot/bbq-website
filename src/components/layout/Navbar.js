@@ -82,14 +82,21 @@ const NavLink = ({ href, children, onClick }) => {
   const { isDark } = useTheme();
   const scrollToSection = (e) => {
     e.preventDefault();
-    const element = document.getElementById(href.replace('#', ''));
-    if (element) {
-      const navbarHeight = 64; // height of navbar (h-16)
-      const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+    if (href === '#') {
       window.scrollTo({
-        top: elementPosition - navbarHeight,
+        top: 0,
         behavior: 'smooth'
       });
+    } else {
+      const element = document.getElementById(href.replace('#', ''));
+      if (element) {
+        const navbarHeight = 64; // height of navbar (h-16)
+        const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+        window.scrollTo({
+          top: elementPosition - navbarHeight,
+          behavior: 'smooth'
+        });
+      }
     }
     if (onClick) onClick();
   };
@@ -120,10 +127,11 @@ const Navbar = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            <NavLink href="#">Home</NavLink>
+            <NavLink href="#top">Home</NavLink>
             <NavLink href="#schedule">Schedule</NavLink>
             <NavLink href="#gallery">Gallery</NavLink>
             <NavLink href="#reviews">Reviews</NavLink>
+            <NavLink href="#booking">Book Now</NavLink>
             <NavLink href="#contact">Contact</NavLink>
             <button
               onClick={toggleTheme}
@@ -161,10 +169,11 @@ const Navbar = () => {
         >
           <div className={`py-4 ${isDark ? 'bg-gray-900/95' : 'bg-white/95'} border-t ${isDark ? 'border-gray-800' : 'border-gray-100'}`}>
             <div className="flex flex-col space-y-4 px-4">
-              <NavLink href="#" onClick={() => setIsMobileMenuOpen(false)}>Home</NavLink>
+              <NavLink href="#top" onClick={() => setIsMobileMenuOpen(false)}>Home</NavLink>
               <NavLink href="#schedule" onClick={() => setIsMobileMenuOpen(false)}>Schedule</NavLink>
               <NavLink href="#gallery" onClick={() => setIsMobileMenuOpen(false)}>Gallery</NavLink>
               <NavLink href="#reviews" onClick={() => setIsMobileMenuOpen(false)}>Reviews</NavLink>
+              <NavLink href="#booking" onClick={() => setIsMobileMenuOpen(false)}>Book Now</NavLink>
               <NavLink href="#contact" onClick={() => setIsMobileMenuOpen(false)}>Contact</NavLink>
             </div>
           </div>
