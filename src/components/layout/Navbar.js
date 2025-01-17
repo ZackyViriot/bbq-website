@@ -131,7 +131,6 @@ const Navbar = () => {
             <NavLink href="#schedule">Schedule</NavLink>
             <NavLink href="#gallery">Gallery</NavLink>
             <NavLink href="#reviews">Reviews</NavLink>
-            <NavLink href="#booking">Book Now</NavLink>
             <NavLink href="#contact">Contact</NavLink>
             <button
               onClick={toggleTheme}
@@ -173,7 +172,6 @@ const Navbar = () => {
               <NavLink href="#schedule" onClick={() => setIsMobileMenuOpen(false)}>Schedule</NavLink>
               <NavLink href="#gallery" onClick={() => setIsMobileMenuOpen(false)}>Gallery</NavLink>
               <NavLink href="#reviews" onClick={() => setIsMobileMenuOpen(false)}>Reviews</NavLink>
-              <NavLink href="#booking" onClick={() => setIsMobileMenuOpen(false)}>Book Now</NavLink>
               <NavLink href="#contact" onClick={() => setIsMobileMenuOpen(false)}>Contact</NavLink>
             </div>
           </div>

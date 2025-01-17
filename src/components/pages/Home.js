@@ -432,30 +432,16 @@ const Home = () => {
       {/* Reviews Section */}
       <Reviews />
 
-      {/* Booking Section */}
-      <section id="booking" className={`py-20 ${isDark ? 'bg-gray-900' : 'bg-gray-50'}`}>
-        <div className="container mx-auto px-4 max-w-4xl">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-6 text-red-500">
-            Book Us For Your Event
-          </h2>
-          <p className="text-center mb-12 max-w-2xl mx-auto">
-            Want authentic Texas BBQ at your next event? Fill out the form below and we'll get back to you within 24 hours!
-          </p>
-          <div className={`${isDark ? 'bg-gray-800/80' : 'bg-white'} rounded-2xl shadow-xl p-8 backdrop-blur-sm transition-all duration-300 hover:shadow-red-500/10 border border-red-500/20`}>
-            <BookingForm />
-          </div>
-        </div>
-      </section>
-
       {/* Contact Section */}
       <section id="contact" className={`py-20 ${isDark ? 'bg-gray-800/50' : 'bg-white'}`}>
         <div className="container mx-auto px-4 max-w-4xl">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-12 text-red-500">
-            Contact Us
+            Contact & Booking
           </h2>
-          <div className={`${isDark ? 'bg-gray-800/80' : 'bg-white'} rounded-2xl shadow-xl p-8 backdrop-blur-sm transition-all duration-300 hover:shadow-red-500/10 border border-red-500/20`}>
+
+          {/* Contact Info */}
+          <div className={`${isDark ? 'bg-gray-800/80' : 'bg-white'} rounded-2xl shadow-xl p-8 backdrop-blur-sm transition-all duration-300 hover:shadow-red-500/10 border border-red-500/20 mb-12`}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {/* Contact Info */}
               <div>
                 <h3 className="text-2xl font-bold mb-4 text-red-400">Location</h3>
                 <p className="mb-6">Find us at various locations around DFW! Check our social media for daily updates.</p>
@@ -502,6 +488,17 @@ const Home = () => {
                   </a>
                 </div>
               </div>
+            </div>
+          </div>
+
+          {/* Booking Form */}
+          <div>
+            <h3 className="text-3xl font-bold text-center mb-6 text-red-400">Book Us For Your Event</h3>
+            <p className="text-center mb-8 max-w-2xl mx-auto">
+              Want authentic Texas BBQ at your next event? Fill out the form below and we'll get back to you within 24 hours!
+            </p>
+            <div className={`${isDark ? 'bg-gray-800/80' : 'bg-white'} rounded-2xl shadow-xl p-8 backdrop-blur-sm transition-all duration-300 hover:shadow-red-500/10 border border-red-500/20`}>
+              <BookingForm />
             </div>
           </div>
         </div>
