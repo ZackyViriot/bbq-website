@@ -104,6 +104,117 @@ const CalendarDay = ({ day, location, time, isToday, isClosed }) => {
   );
 };
 
+const BookingForm = () => {
+  const { isDark } = useTheme();
+  const [formData, setFormData] = React.useState({
+    name: '',
+    email: '',
+    phone: '',
+    date: '',
+    eventType: '',
+    message: ''
+  });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Handle form submission logic here
+    console.log('Form submitted:', formData);
+  };
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label className="block text-sm font-medium mb-2">Name</label>
+          <input
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            className={`w-full px-4 py-2 rounded-lg border ${isDark ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-300'} focus:ring-2 focus:ring-red-500 focus:border-transparent`}
+            required
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium mb-2">Email</label>
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            className={`w-full px-4 py-2 rounded-lg border ${isDark ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-300'} focus:ring-2 focus:ring-red-500 focus:border-transparent`}
+            required
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium mb-2">Phone</label>
+          <input
+            type="tel"
+            name="phone"
+            value={formData.phone}
+            onChange={handleChange}
+            className={`w-full px-4 py-2 rounded-lg border ${isDark ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-300'} focus:ring-2 focus:ring-red-500 focus:border-transparent`}
+            required
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium mb-2">Preferred Date</label>
+          <input
+            type="date"
+            name="date"
+            value={formData.date}
+            onChange={handleChange}
+            className={`w-full px-4 py-2 rounded-lg border ${isDark ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-300'} focus:ring-2 focus:ring-red-500 focus:border-transparent`}
+            required
+          />
+        </div>
+        <div className="md:col-span-2">
+          <label className="block text-sm font-medium mb-2">Event Type</label>
+          <select
+            name="eventType"
+            value={formData.eventType}
+            onChange={handleChange}
+            className={`w-full px-4 py-2 rounded-lg border ${isDark ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-300'} focus:ring-2 focus:ring-red-500 focus:border-transparent`}
+            required
+          >
+            <option value="">Select an event type</option>
+            <option value="private">Private Party</option>
+            <option value="corporate">Corporate Event</option>
+            <option value="wedding">Wedding</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div className="md:col-span-2">
+          <label className="block text-sm font-medium mb-2">Message</label>
+          <textarea
+            name="message"
+            value={formData.message}
+            onChange={handleChange}
+            rows="4"
+            className={`w-full px-4 py-2 rounded-lg border ${isDark ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-300'} focus:ring-2 focus:ring-red-500 focus:border-transparent`}
+            required
+          ></textarea>
+        </div>
+      </div>
+      <div className="text-center">
+        <button
+          type="submit"
+          className="px-8 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+        >
+          Submit Booking Request
+        </button>
+      </div>
+    </form>
+  );
+};
+
 const Home = () => {
   const { isDark } = useTheme();
   const today = new Date().getDay(); // 0 is Sunday, 1 is Monday, etc.
@@ -217,7 +328,7 @@ const Home = () => {
   return (
     <div className={`min-h-screen ${isDark ? 'bg-gray-900 text-gray-100' : 'bg-gray-50 text-gray-800'} overflow-x-hidden`}>
       {/* Hero Section */}
-      <section className="relative w-full pt-24 pb-20">
+      <section className="relative w-full min-h-[80vh] flex items-center pt-16 pb-20">
         {/* Background Image */}
         <div 
           className="absolute inset-0 w-full h-full"
@@ -233,15 +344,15 @@ const Home = () => {
           <div className="flex flex-col lg:flex-row items-center lg:items-start justify-between">
             {/* Main Content */}
             <div className="lg:w-2/3 text-center lg:text-left mb-12 lg:mb-0">
-              <div className="relative mb-8 h-32">
+              <div className="relative mb-8 h-32 transform scale-75 sm:scale-100">
                 <FoodTruck />
               </div>
-              <h1 className="text-5xl md:text-7xl font-bold mb-6">
+              <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold mb-6">
                 <span className="text-red-500">Big Greg</span>
                 <br />
                 <span className="text-red-500">BBQ</span>
               </h1>
-              <p className="text-xl md:text-2xl font-serif italic mb-8 text-white">
+              <p className="text-lg sm:text-xl md:text-2xl font-serif italic mb-8 text-white">
                 Authentic Texas BBQ, On the Go!
               </p>
             </div>
@@ -320,6 +431,21 @@ const Home = () => {
 
       {/* Reviews Section */}
       <Reviews />
+
+      {/* Booking Section */}
+      <section id="booking" className={`py-20 ${isDark ? 'bg-gray-900' : 'bg-gray-50'}`}>
+        <div className="container mx-auto px-4 max-w-4xl">
+          <h2 className="text-4xl md:text-5xl font-bold text-center mb-6 text-red-500">
+            Book Us For Your Event
+          </h2>
+          <p className="text-center mb-12 max-w-2xl mx-auto">
+            Want authentic Texas BBQ at your next event? Fill out the form below and we'll get back to you within 24 hours!
+          </p>
+          <div className={`${isDark ? 'bg-gray-800/80' : 'bg-white'} rounded-2xl shadow-xl p-8 backdrop-blur-sm transition-all duration-300 hover:shadow-red-500/10 border border-red-500/20`}>
+            <BookingForm />
+          </div>
+        </div>
+      </section>
 
       {/* Contact Section */}
       <section id="contact" className={`py-20 ${isDark ? 'bg-gray-800/50' : 'bg-white'}`}>
