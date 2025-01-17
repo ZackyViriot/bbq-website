@@ -44,6 +44,7 @@ const Navbar = () => {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             <NavLink href="#">Home</NavLink>
+            <NavLink href="#schedule">Schedule</NavLink>
             <NavLink href="#gallery">Gallery</NavLink>
             <NavLink href="#reviews">Reviews</NavLink>
             <NavLink href="#contact">Contact</NavLink>
@@ -84,6 +85,7 @@ const Navbar = () => {
           <div className={`py-4 ${isDark ? 'bg-gray-900/95' : 'bg-white/95'} border-t ${isDark ? 'border-gray-800' : 'border-gray-100'}`}>
             <div className="flex flex-col space-y-4 px-4">
               <NavLink href="#" onClick={() => setIsMobileMenuOpen(false)}>Home</NavLink>
+              <NavLink href="#schedule" onClick={() => setIsMobileMenuOpen(false)}>Schedule</NavLink>
               <NavLink href="#gallery" onClick={() => setIsMobileMenuOpen(false)}>Gallery</NavLink>
               <NavLink href="#reviews" onClick={() => setIsMobileMenuOpen(false)}>Reviews</NavLink>
               <NavLink href="#contact" onClick={() => setIsMobileMenuOpen(false)}>Contact</NavLink>

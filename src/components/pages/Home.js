@@ -51,8 +51,104 @@ const FoodTruck = () => {
   );
 };
 
+const CalendarDay = ({ day, location, time, isToday, isClosed }) => {
+  const { isDark } = useTheme();
+  
+  return (
+    <div 
+      className={`
+        ${isDark ? 'bg-gray-800/80' : 'bg-white'} 
+        ${isToday ? 'ring-2 ring-red-500' : ''}
+        ${isClosed ? 'opacity-50' : ''}
+        p-4 rounded-lg shadow-md border border-red-500/10 
+        hover:border-red-500/30 transition-all duration-300
+        flex flex-col h-full
+      `}
+    >
+      <div className="flex justify-between items-center mb-3">
+        <h3 className="text-lg font-bold text-red-500">{day}</h3>
+        {isToday && (
+          <span className="text-xs px-2 py-1 bg-red-500 text-white rounded-full">Today</span>
+        )}
+      </div>
+      {!isClosed ? (
+        <>
+          <div className="flex-grow">
+            <p className="font-medium text-base mb-2">{location}</p>
+            <div className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+              <p>{time}</p>
+            </div>
+          </div>
+          <div className="mt-3 pt-3 border-t border-red-500/10">
+            <a 
+              href={`https://maps.google.com/maps?q=${encodeURIComponent(location)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-red-500 hover:text-red-600 flex items-center"
+            >
+              <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              View on Maps
+            </a>
+          </div>
+        </>
+      ) : (
+        <div className="flex-grow flex items-center justify-center">
+          <p className="text-center italic opacity-75">Closed</p>
+        </div>
+      )}
+    </div>
+  );
+};
+
 const Home = () => {
   const { isDark } = useTheme();
+  const today = new Date().getDay(); // 0 is Sunday, 1 is Monday, etc.
+
+  const scheduleData = [
+    {
+      day: "Monday",
+      isClosed: true
+    },
+    {
+      day: "Tuesday",
+      location: "Klyde Warren Park",
+      time: "11:00 AM - 3:00 PM",
+      coordinates: "32.7894, -96.8016"
+    },
+    {
+      day: "Wednesday",
+      location: "Legacy Food Hall",
+      time: "4:00 PM - 9:00 PM",
+      coordinates: "33.0774, -96.8223"
+    },
+    {
+      day: "Thursday",
+      location: "Dallas Farmers Market",
+      time: "11:00 AM - 7:00 PM",
+      coordinates: "32.7867, -96.7970"
+    },
+    {
+      day: "Friday",
+      location: "Deep Ellum",
+      time: "5:00 PM - 10:00 PM",
+      coordinates: "32.7843, -96.7840"
+    },
+    {
+      day: "Saturday",
+      location: "Fort Worth Stockyards",
+      time: "11:00 AM - 8:00 PM",
+      coordinates: "32.7886, -97.3462"
+    },
+    {
+      day: "Sunday",
+      location: "Sundance Square",
+      time: "12:00 PM - 6:00 PM",
+      coordinates: "32.7555, -97.3308"
+    }
+  ];
 
   useEffect(() => {
     // Set up continuous food truck animation
@@ -81,17 +177,16 @@ const Home = () => {
     // Create the left to right animation with bouncing
     timeline
       .to('.food-truck', {
-        x: window.innerWidth + 200,
+        x: Math.min(window.innerWidth - 250, window.innerWidth * 0.8),
         duration: 8,
         ease: "none",
         onUpdate: function() {
-          // Add subtle bouncing effect
           const progress = this.progress();
           const bounce = Math.sin(progress * 15) * 2;
           gsap.set('.truck-container', { y: bounce });
         }
       })
-      .set('.food-truck', { x: -200 }); // Reset position instantly
+      .set('.food-truck', { x: -200 });
 
     // Cleanup function
     return () => {
@@ -119,7 +214,7 @@ const Home = () => {
   };
 
   return (
-    <div className={`min-h-screen ${isDark ? 'bg-gray-900 text-gray-100' : 'bg-gray-50 text-gray-800'}`}>
+    <div className={`min-h-screen ${isDark ? 'bg-gray-900 text-gray-100' : 'bg-gray-50 text-gray-800'} overflow-x-hidden`}>
       {/* Hero Section */}
       <section className="container mx-auto px-4 pt-24 pb-20">
         <div className="flex flex-col lg:flex-row items-center lg:items-start justify-between">
@@ -169,6 +264,38 @@ const Home = () => {
                   <MenuItem key={index} {...item} />
                 ))}
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Schedule Section */}
+      <section id="schedule" className={`py-20 ${isDark ? 'bg-gray-800/50' : 'bg-white'}`}>
+        <div className="container mx-auto px-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-center mb-6 text-red-500">
+            Weekly Schedule
+          </h2>
+          <p className="text-center mb-12 max-w-2xl mx-auto">
+            Find us at these locations throughout the week. Click on any location to get directions!
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-7 gap-4 max-w-7xl mx-auto">
+            {scheduleData.map((item, index) => (
+              <CalendarDay 
+                key={index}
+                {...item}
+                isToday={index === today}
+              />
+            ))}
+          </div>
+          <div className="mt-12 max-w-2xl mx-auto">
+            <div className={`${isDark ? 'bg-gray-800/80' : 'bg-white'} rounded-lg p-4 shadow-md border border-red-500/10`}>
+              <h3 className="text-lg font-bold text-red-500 mb-2">Schedule Notes:</h3>
+              <ul className="space-y-2 text-sm">
+                <li>• Hours may vary during holidays or special events</li>
+                <li>• Follow us on social media for real-time updates and special pop-up locations</li>
+                <li>• Available for private events and catering - contact us for details</li>
+                <li>• Bad weather may affect our schedule - check our social media for updates</li>
+              </ul>
             </div>
           </div>
         </div>
