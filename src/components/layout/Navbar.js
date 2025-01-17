@@ -1,6 +1,83 @@
 import React, { useState } from 'react';
 import { useTheme } from '../../context/ThemeContext';
 
+const Logo = ({ className = "" }) => {
+  const { isDark } = useTheme();
+  return (
+    <div className={`relative ${className}`}>
+      <svg viewBox="0 0 200 120" className="w-auto h-16">
+        {/* Outer Circle */}
+        <circle 
+          cx="100" 
+          cy="60" 
+          r="50" 
+          fill="none" 
+          className={`${isDark ? 'stroke-red-500' : 'stroke-red-600'}`}
+          strokeWidth="3"
+        />
+        
+        {/* Inner Background */}
+        <circle 
+          cx="100" 
+          cy="60" 
+          r="45" 
+          className={`${isDark ? 'fill-gray-800' : 'fill-white'}`}
+          stroke="none"
+        />
+
+        {/* Top Knife */}
+        <g className={`${isDark ? 'text-red-500' : 'text-red-600'}`} transform="translate(100, 60)">
+          <g transform="translate(-40, -30) rotate(-15)">
+            {/* Knife Handle */}
+            <rect x="0" y="0" width="25" height="8" fill="currentColor" rx="1" />
+            {/* Knife Blade */}
+            <path d="M25 0h45l10 4-10 4h-45z" fill="currentColor" />
+            {/* Knife Details */}
+            <circle cx="12" cy="4" r="2" fill={isDark ? '#1f2937' : '#f3f4f6'} />
+            <circle cx="20" cy="4" r="2" fill={isDark ? '#1f2937' : '#f3f4f6'} />
+          </g>
+        </g>
+        
+        {/* Text Container */}
+        <g transform="translate(100, 60)" textAnchor="middle">
+          {/* Main Text */}
+          <text 
+            className={`text-2xl font-bold ${isDark ? 'text-red-500' : 'text-red-600'}`}
+            fill="currentColor"
+            y="-5"
+            style={{ fontFamily: 'Georgia, serif' }}
+          >
+            BIG GREG BBQ
+          </text>
+          
+          {/* Subtitle */}
+          <text 
+            y="12"
+            className={`text-xs italic ${isDark ? 'text-gray-300' : 'text-gray-600'}`}
+            fill="currentColor"
+            style={{ fontFamily: 'Georgia, serif' }}
+          >
+            It's All Wood
+          </text>
+        </g>
+        
+        {/* Bottom Knife */}
+        <g className={`${isDark ? 'text-red-500' : 'text-red-600'}`} transform="translate(100, 60)">
+          <g transform="translate(-40, 20) rotate(15)">
+            {/* Knife Handle */}
+            <rect x="0" y="0" width="25" height="8" fill="currentColor" rx="1" />
+            {/* Knife Blade */}
+            <path d="M25 0h45l10 4-10 4h-45z" fill="currentColor" />
+            {/* Knife Details */}
+            <circle cx="12" cy="4" r="2" fill={isDark ? '#1f2937' : '#f3f4f6'} />
+            <circle cx="20" cy="4" r="2" fill={isDark ? '#1f2937' : '#f3f4f6'} />
+          </g>
+        </g>
+      </svg>
+    </div>
+  );
+};
+
 const NavLink = ({ href, children, onClick }) => {
   const { isDark } = useTheme();
   const scrollToSection = (e) => {
@@ -38,7 +115,7 @@ const Navbar = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <NavLink href="#">
-            <span className="text-2xl font-bold text-red-500 hover:text-red-600 transition-colors duration-200">Big Greg BBQ</span>
+            <Logo className="hover:opacity-80 transition-opacity duration-200" />
           </NavLink>
 
           {/* Desktop Navigation */}

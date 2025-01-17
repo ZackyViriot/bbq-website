@@ -4,6 +4,7 @@ import ScrollTrigger from 'gsap/ScrollTrigger';
 import { useTheme } from '../../context/ThemeContext';
 import Gallery from '../sections/Gallery';
 import Reviews from '../sections/Reviews';
+import bbq8 from '../../assets/images/bbq8.jpeg';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -216,53 +217,66 @@ const Home = () => {
   return (
     <div className={`min-h-screen ${isDark ? 'bg-gray-900 text-gray-100' : 'bg-gray-50 text-gray-800'} overflow-x-hidden`}>
       {/* Hero Section */}
-      <section className="container mx-auto px-4 pt-24 pb-20">
-        <div className="flex flex-col lg:flex-row items-center lg:items-start justify-between">
-          {/* Main Content */}
-          <div className="lg:w-2/3 text-center lg:text-left mb-12 lg:mb-0">
-            <div className="relative mb-8 h-32">
-              <FoodTruck />
+      <section className="relative w-full pt-24 pb-20">
+        {/* Background Image */}
+        <div 
+          className="absolute inset-0 w-full h-full"
+          style={{
+            backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.8)), url(${bbq8})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundAttachment: 'fixed'
+          }}
+        />
+        
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="flex flex-col lg:flex-row items-center lg:items-start justify-between">
+            {/* Main Content */}
+            <div className="lg:w-2/3 text-center lg:text-left mb-12 lg:mb-0">
+              <div className="relative mb-8 h-32">
+                <FoodTruck />
+              </div>
+              <h1 className="text-5xl md:text-7xl font-bold mb-6">
+                <span className="text-red-500">Big Greg</span>
+                <br />
+                <span className="text-red-500">BBQ</span>
+              </h1>
+              <p className="text-xl md:text-2xl font-serif italic mb-8 text-white">
+                Authentic Texas BBQ, On the Go!
+              </p>
             </div>
-            <h1 className="text-5xl md:text-7xl font-bold mb-6">
-              <span className="text-red-500">Big Greg</span>
-              <br />
-              <span className="text-red-500">BBQ</span>
-            </h1>
-            <p className="text-xl md:text-2xl font-serif italic mb-8">
-              Authentic Texas BBQ, On the Go!
-            </p>
-          </div>
 
-          {/* Menu Card */}
-          <div className="lg:w-1/3 w-full max-w-sm mx-auto lg:mx-0">
-            <div className={`${isDark ? 'bg-gray-800/80' : 'bg-white'} rounded-2xl shadow-2xl p-6 backdrop-blur-sm transition-all duration-300 hover:shadow-red-500/10 border border-red-500/20`}>
-              <h2 className="text-3xl font-serif font-bold text-center mb-6 text-red-500">Menu</h2>
-              
-              {/* Meats */}
-              <div className="mb-6">
-                <h3 className="text-xl font-bold mb-3 text-red-400">Meats</h3>
-                {menuItems.meats.map((item, index) => (
-                  <MenuItem key={index} {...item} />
-                ))}
-                <p className="text-sm mt-2 opacity-75">
-                  All plates include 2 sides
-                </p>
-              </div>
+            {/* Menu Card */}
+            <div className="lg:w-1/3 w-full max-w-sm mx-auto lg:mx-0">
+              <div className={`${isDark ? 'bg-gray-900/95' : 'bg-white/95'} rounded-2xl shadow-2xl p-6 backdrop-blur-md transition-all duration-300 hover:shadow-red-500/10 border border-red-500/20`}>
+                <h2 className="text-3xl font-serif font-bold text-center mb-6 text-red-500">Menu</h2>
+                
+                {/* Meats */}
+                <div className="mb-6">
+                  <h3 className="text-xl font-bold mb-3 text-red-400">Meats</h3>
+                  {menuItems.meats.map((item, index) => (
+                    <MenuItem key={index} {...item} />
+                  ))}
+                  <p className="text-sm mt-2 opacity-75">
+                    All plates include 2 sides
+                  </p>
+                </div>
 
-              {/* Sides */}
-              <div className="mb-6">
-                <h3 className="text-xl font-bold mb-3 text-red-400">Sides</h3>
-                {menuItems.sides.map((item, index) => (
-                  <MenuItem key={index} {...item} />
-                ))}
-              </div>
+                {/* Sides */}
+                <div className="mb-6">
+                  <h3 className="text-xl font-bold mb-3 text-red-400">Sides</h3>
+                  {menuItems.sides.map((item, index) => (
+                    <MenuItem key={index} {...item} />
+                  ))}
+                </div>
 
-              {/* Drinks */}
-              <div>
-                <h3 className="text-xl font-bold mb-3 text-red-400">Drinks</h3>
-                {menuItems.drinks.map((item, index) => (
-                  <MenuItem key={index} {...item} />
-                ))}
+                {/* Drinks */}
+                <div>
+                  <h3 className="text-xl font-bold mb-3 text-red-400">Drinks</h3>
+                  {menuItems.drinks.map((item, index) => (
+                    <MenuItem key={index} {...item} />
+                  ))}
+                </div>
               </div>
             </div>
           </div>
@@ -338,19 +352,23 @@ const Home = () => {
               <div>
                 <h3 className="text-2xl font-bold mb-4 text-red-400">Follow Us</h3>
                 <div className="space-y-4">
-                  <a href="#" className="flex items-center space-x-3 text-lg hover:text-red-500 transition-colors">
+                  <a 
+                    href="https://www.facebook.com/profile.php?id=100068146972993" 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center space-x-3 text-lg hover:text-red-500 transition-colors"
+                  >
                     <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
                     </svg>
                     <span>Facebook</span>
                   </a>
-                  <a href="#" className="flex items-center space-x-3 text-lg hover:text-red-500 transition-colors">
-                    <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
-                    </svg>
-                    <span>Twitter</span>
-                  </a>
-                  <a href="#" className="flex items-center space-x-3 text-lg hover:text-red-500 transition-colors">
+                  <a 
+                    href="https://www.instagram.com/biggregbbq/" 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center space-x-3 text-lg hover:text-red-500 transition-colors"
+                  >
                     <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"/>
                     </svg>
